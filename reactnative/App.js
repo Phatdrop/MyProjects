@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import {React} from 'react';
 
 const url = "http://localhost:5000/posts";
@@ -8,6 +8,8 @@ export default function App() {
   return (
     <View style={styles.container}>
   <Text> fetch </Text>
+  <Button title="Login med Azure"> </Button>
+  <Button title="Login med MicrosoftTeams"> </Button>
       <StatusBar style="auto" />
     </View>
   );
