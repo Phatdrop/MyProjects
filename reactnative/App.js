@@ -1,56 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import {React} from 'react';
+import React, {useState} from 'react';
+import { View, StyleSheet, Text, Button, Linking, DrawerLayoutAndroid } from 'react-native';
 
-const url = "http://localhost:5000/posts";
+const App = () => {
+  const [name, setName] = useState('Style Test')
+  
+  const onClickHandler = () => {
+  setName('Opdateret style test')
+  }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-  <Text> fetch </Text>
-  <Button title="Login med Azure"> </Button>
-  <Button title="Login med MicrosoftTeams"> </Button>
-      <StatusBar style="auto" />
+  return ( 
+    <View style={styles.body}>
+      <Text style={styles.text}> {name} </Text>
+      <Button title="Update state" onPress={onClickHandler} style={styles.Button}> </Button>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
-    backgroundColor: '#fff',
+    color: '#ffff',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth:10,
+    borderColor: '#03a9f4',
+    borderRadius: 10,
+    margin:40,
+
   },
-});
+  text: {
+    color:'#f23',
+    fontSize: 20,
+    fontStyle: 'italic',
+    margin: 10,
+}});
 
-/* const url = "http://localhost:5000/posts";
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-  console.log(data);
-
-  useEffect (() => fetch(url) 
-  .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false)))
-
-  return (
-
-    <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <Text>Loading...</Text> : 
-      ( <View style={{ flex: 1, flexDirection: 'column', justifyContent:  'space-between'}}>
-          <Text style={{ fontSize: 18, color: 'green', textAlign: 'center'}}>{data.title}</Text>
-          <Text style={{ fontSize: 14, color: 'green', textAlign: 'center', paddingBottom: 10}}>Articles:</Text>
-          <FlatList
-            data={data.articles}
-            keyExtractor={({ id }, index) => id}
-            renderItem={({ item }) => (
-              <Text>{item.id + '. ' + item.title}</Text>
-            )}
-          />
-        </View>
-      )}
-    </View>
-  );
-}; */
+export default App;
