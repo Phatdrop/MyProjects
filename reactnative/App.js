@@ -1,46 +1,48 @@
-import React, {useState} from 'react';
-import { View, StyleSheet, Text, Button, Linking, DrawerLayoutAndroid, Alert, Modal } from 'react-native';
+import {
+  NavigationContainer,
+  useNavigationBuilder,
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from "react";
+import "react-native-gesture-handler";
+import ScreenA from "./src/ScreenA";
+import ScreenB from "./src/ScreenB";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  Linking,
+  DrawerLayoutAndroid,
+  Alert,
+  Modal,
+} from "react-native";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import {
+  PanGestureHandler,
+  ScrollView,
+  Swipeable,
+} from "react-native-gesture-handler";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-const App = () => {
-  const [name, setName] = useState('')
-  const [showWarning, SetShowWarning] = useState(false);
-  const [submitted, SetSubmitted] = useState(false);
-  const onClickHandler = () => { 
-    if (name.length > 3) {
-      SetSubmitted(!submitted);
-    } else {
-      SetShowWarning(true);
-    }
-  }
+const Tab = createMaterialTopTabNavigator();
 
-  return ( 
-    <View style={styles.body}>
-      <Text style={styles.text}> {name} </Text>
-      <Button title="Update state" onPress={onClickHandler} style={styles.Button}> </Button>
-      <Modal visible={showWarning}>
-        <Text> The name must be longer than 3 characters </Text>
-      </Modal>
-    </View>
+function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator options={{ headerShown: false }}>
+        <Tab.Screen
+          name="Home"
+          component={ScreenA}
+          options={{
+            header: () => null,
+          }}
+        />
+        <Tab.Screen name="New Post" component={ScreenB} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-};
-
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    color: '#ffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth:10,
-    borderColor: '#03a9f4',
-    borderRadius: 10,
-    margin:40,
-
-  },
-  text: {
-    color:'#f23',
-    fontSize: 20,
-    fontStyle: 'italic',
-    margin: 10,
-}});
+}
 
 export default App;
