@@ -5,8 +5,9 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
-import ScreenA from "./src/ScreenA";
-import ScreenB from "./src/ScreenB";
+import ScreenA from "./screens/ScreenA";
+import ScreenB from "./screens/ScreenB";
+import Intro from "./screens/Intro";
 import {
   View,
   StyleSheet,
@@ -30,6 +31,7 @@ const Tab = createMaterialTopTabNavigator();
 
 function App() {
   return (
+    <Intro> 
     <NavigationContainer>
       <Tab.Navigator options={{ headerShown: false }}>
         <Tab.Screen
@@ -42,6 +44,7 @@ function App() {
         <Tab.Screen name="New Post" component={ScreenB} />
       </Tab.Navigator>
     </NavigationContainer>
+    </Intro>
   );
 }
 
