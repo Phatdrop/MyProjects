@@ -3,7 +3,7 @@ import {
   useNavigationBuilder,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
 import ScreenA from "./screens/ScreenA";
 import ScreenB from "./screens/ScreenB";
@@ -24,28 +24,37 @@ import {
   ScrollView,
   Swipeable,
 } from "react-native-gesture-handler";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NoteScreen from "./screens/NoteScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-function App() {
+export default function App() {
+  const [user, setUser] = useState({});
+  const findUser = async () => {
+    const result = await AsyncStorage.getItem("user");
+    setUser(JSON.parse(result));
+  };
+
+  useEffect(() => {
+    findUser();
+  }, []);
+
   return (
-    <Intro> 
-    <NavigationContainer>
-      <Tab.Navigator options={{ headerShown: false }}>
-        <Tab.Screen
-          name="Home"
-          component={ScreenA}
-          options={{
-            header: () => null,
-          }}
-        />
-        <Tab.Screen name="New Post" component={ScreenB} />
-      </Tab.Navigator>
-    </NavigationContainer>
-    </Intro>
+    <NoteScreen user={user}>
+      <NavigationContainer>
+        <Tab.Navigator options={{ headerShown: false }}>
+          <Tab.Screen
+            name="Home"
+            component={ScreenA}
+            options={{
+              header: () => null,
+            }}
+          />
+          <Tab.Screen name="New Post" component={ScreenB} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </NoteScreen>
   );
 }
-
-export default App;
