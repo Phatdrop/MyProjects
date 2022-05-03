@@ -39,10 +39,10 @@ const NoteScreen = ({ user }) => {
           />
         </View>
       </View>
-      <NoteInputModal
+      {/* <NoteInputModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-      />
+      /> */}
     </>
   );
 };
