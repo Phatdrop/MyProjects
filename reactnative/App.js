@@ -34,27 +34,32 @@ export default function App() {
   const [user, setUser] = useState({});
   const findUser = async () => {
     const result = await AsyncStorage.getItem("user");
-    setUser(JSON.parse(result));
+    if (result !== null) {
+      setUser(JSON.parse(result));
+    }
   };
 
   useEffect(() => {
     findUser();
   }, []);
 
-  return (
-    <NoteScreen user={user}>
-      <NavigationContainer>
-        <Tab.Navigator options={{ headerShown: false }}>
-          <Tab.Screen
-            name="Home"
-            component={ScreenA}
-            options={{
-              header: () => null,
-            }}
-          />
-          <Tab.Screen name="New Post" component={ScreenB} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </NoteScreen>
-  );
+  if (!user.name) return <Intro onFinish={findUser} />;
+  else {
+    return (
+      <NoteScreen user={user}>
+        <NavigationContainer>
+          <Tab.Navigator options={{ headerShown: false }}>
+            <Tab.Screen
+              name="Home"
+              component={ScreenA}
+              options={{
+                header: () => null,
+              }}
+            />
+            <Tab.Screen name="New Post" component={ScreenB} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </NoteScreen>
+    );
+  }
 }

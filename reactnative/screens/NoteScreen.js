@@ -2,9 +2,11 @@ import { Text, View, StyleSheet, StatusBar } from "react-native";
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import IconButton from "../components/IconButton";
+import NoteInputModal from "../components/NoteInputModal";
 
 const NoteScreen = ({ user }) => {
   const [greet, setGreet] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const findGreet = () => {
     const hrs = new Date().getHours();
@@ -31,12 +33,16 @@ const NoteScreen = ({ user }) => {
         >
           <Text style={styles.emptyHeader}> Add notes </Text>
           <IconButton
-            onPress={() => console.log("opening modal")}
+            onPress={() => setModalVisible(true)}
             antIconName="plus"
             style={styles.addBtn}
           />
         </View>
       </View>
+      <NoteInputModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </>
   );
 };

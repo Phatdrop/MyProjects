@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import IconButton from "../components/IconButton";
 
-const Intro = () => {
+const Intro = (onFinish) => {
   //sætter textinput til setUser, hvori staten opdateres når der bliver ændret på texten
   const [name, setName] = useState("");
   const handleOnChangeText = (text) => setName(text);
@@ -19,6 +19,7 @@ const Intro = () => {
     const user = { name: name };
     //Storing user in AsyncStorage
     await AsyncStorage.setItem("user", JSON.stringify(user));
+    if (onFinish) onFinish();
   };
 
   return (
