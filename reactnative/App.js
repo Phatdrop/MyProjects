@@ -27,6 +27,7 @@ import {
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoteScreen from "./screens/NoteScreen";
+import Users from "./components/Api/Users";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -46,20 +47,19 @@ export default function App() {
   if (!user.name) return <Intro onFinish={findUser} />;
   else {
     return (
-      <NoteScreen user={user}>
-        <NavigationContainer>
-          <Tab.Navigator options={{ headerShown: false }}>
-            <Tab.Screen
-              name="Home"
-              component={ScreenA}
-              options={{
-                header: () => null,
-              }}
-            />
-            <Tab.Screen name="New Post" component={ScreenB} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </NoteScreen>
+      <Users />
+      // <NavigationContainer>
+      //   <Tab.Navigator options={{ headerShown: false }}>
+      //     <Tab.Screen
+      //       name="Home"
+      //       component={ScreenA}
+      //       options={{
+      //         header: () => null,
+      //       }}
+      //     />
+      //     <Tab.Screen name="New Post" component={ScreenB} />
+      //   </Tab.Navigator>
+      // </NavigationContainer>
     );
   }
 }
