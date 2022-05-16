@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import ScreenB from "./ScreenB";
+import Users from "../components/Api/Users";
 
 export default function ScreenA({ navigation }) {
   const onPressHandler = () => {
@@ -25,6 +26,7 @@ export default function ScreenA({ navigation }) {
 
   return (
     <View style={styles.body}>
+      <Users />
       <Text style={styles.text}>Screen A</Text>
       <Pressable
         onPress={onPressHandler}

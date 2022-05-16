@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet} from "react-native";
 import { useState, useEffect } from "react";
 import React from "react";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import {Card} from 'react-native-paper';
 
 const URL = "http://206.189.49.197/User/";
 
@@ -9,6 +10,7 @@ const Users = () => {
   const [user, setUser] = useState();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     fetch(URL)
@@ -18,29 +20,30 @@ const Users = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+ 
   return (
-    <View>
+      <View>
       {isLoading ? (
         <Text>Loading...</Text>
-      ) : (
-        <View>
-          <Text>
-            {/* {data.firstName}
-            {data.lastName} */}
-          </Text>
+        ) : (
+          <View>
           <FlatList
             data={data}
+            extraData={data}
+            initialNumToRender={2}
+            maxToRenderPerBatch={1}
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
-              <View>
-                <Text>
-                  {item.firstName}
-                  {item.lastName}
-                  {item.baseID}
-                  {item.role}
-                </Text>
+              data.map((item) => (
+              <Card> 
+              <View style= {styles.listItem}>
+                <Text style={styles.textItem}>
+                  {item.firstName + " " + item.lastName + " "+ item.currentAbsenceStatus}  
+                  
+                  </Text>
               </View>
-            )}
+              </Card>
+        )))} 
           />
         </View>
       )}
@@ -49,3 +52,29 @@ const Users = () => {
 };
 
 export default Users;
+
+const styles = StyleSheet.create({
+  listItem:{
+    padding: 20,
+    backgroundColor: '#ccc',
+    borderColor: 'black',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    margin: 10,
+    borderColor: 'blue',
+    borderRadius: 50,
+    flex: 1,
+  },
+  textItem: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    flex: 1,
+    alignSelf: 'center',
+  },
+  viewBackground: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
