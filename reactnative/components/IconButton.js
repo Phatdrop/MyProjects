@@ -25,9 +25,10 @@ const IconButton = ({ antIconName, size, color, style, onPress }) => {
 const styles = StyleSheet.create({
   icon: {
     backgroundColor: "yellow",
-    padding: 15,
-    borderRadius: 50,
+    padding: 5,
+    borderRadius: 20,
     elevation: 5,
+    justifyContent:"space-around"
   },
 });
 

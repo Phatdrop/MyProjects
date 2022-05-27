@@ -16,6 +16,9 @@ import {
   Modal,
 } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import Create from "reactnative/components/Api/Create";
+
+//Import gone wrong
 
 export default function ScreenB({ navigation }) {
   const onPressHandler = () => {

@@ -25,16 +25,26 @@ export default function ScreenA({ navigation }) {
   };
 
   return (
-    <View style={styles.body}>
+    <View style={styles.body} >
       <Users />
-      <Text style={styles.text}>Screen A</Text>
+      <Text style={styles.text}></Text>
       <Pressable
         onPress={onPressHandler}
         style={({ pressed }) => ({
           backgroundColor: pressed ? "#ddd" : "#0f0",
         })}
       >
-        <Text style={styles.text}> Go to screen B </Text>
+        <View style={styles.viewContainer}>
+        <Text style={styles.body}> Filter By: </Text>
+        <Button style = {styles.buttonContainer}
+        title = "Onsite" />
+        <Button
+        title= "Offsite"
+        />
+        <Button
+        title= "Sick"
+        />
+        </View>
       </Pressable>
     </View>
   );
@@ -51,4 +61,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     margin: 10,
   },
+  viewContainer: {
+    margin: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  buttonContainer: {
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    borderRadius: 50,
+    borderColor: 'black',
+    borderWidth: 1,
+    backgroundColor: 'purple',
+    padding: 10,
+    },
+  
 });
