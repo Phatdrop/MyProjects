@@ -14,11 +14,11 @@ import {
   DrawerLayoutAndroid,
   Alert,
   Modal,
+  TouchableOpacity,
 } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import Create from "reactnative/components/Api/Create";
-
-//Import gone wrong
+import Create from "../components/Api/Create";
+import CustomButton from "../components/CustomButton";
 
 export default function ScreenB({ navigation }) {
   const onPressHandler = () => {
@@ -28,15 +28,20 @@ export default function ScreenB({ navigation }) {
 
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>Screen B</Text>
+      <CustomButton
+        title="open camera"
+        color="#0080ff"
+        onPressFunction={() => {
+          navigation.navigate("Camera");
+        }}
+      />
+      <Create />
       <Pressable
         onPress={onPressHandler}
         style={({ pressed }) => ({
           backgroundColor: pressed ? "#ddd" : "#0f0",
         })}
-      >
-        <Text style={styles.text}> Go Back To A </Text>
-      </Pressable>
+      ></Pressable>
     </View>
   );
 }
@@ -46,10 +51,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "green",
   },
   text: {
     fontSize: 40,
     fontWeight: "bold",
     margin: 10,
+  },
+  button: {
+    backgroundColor: "red",
+    borderRadius: 20,
+    margin: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 0,
+    padding: 5,
   },
 });

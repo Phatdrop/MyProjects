@@ -1,29 +1,44 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { TextInput, View, StyleSheet } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
-const SearchBar = ({ containerStyle }) => {
+export default function SearchInput({ setTerm }) {
+  const [input, setInput] = useState("");
+
   return (
-    <View style={[styles.container, { ...containerStyle }]}>
+    <View style={[styles.elevation, styles.inputContainer]}>
+      <FontAwesome name="search" size={25} style={styles.iconStyles} />
       <TextInput
-        style={styles.searchBar}
-        placeholder="Search Here.."
-      ></TextInput>
+        style={styles.input}
+        placeholder="Name or Email"
+        value={input}
+        onChangeText={(text) => setInput(text)}
+        onEndEditing={() => {
+          if (input) setTerm(input);
+          setInput("");
+        }}
+      />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  searchBar: {
-    borderWidth: 1,
-    borderColor: "black",
-    height: 40,
+  inputContainer: {
+    marginTop: 5,
+    marginHorizontal: 25,
+    backgroundColor: "white",
+    padding: 11,
     borderRadius: 40,
-    paddingLeft: 15,
-    fontSize: 20,
+    flexDirection: "row",
   },
-  container: {},
+  elevation: {
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+    elevation: 3,
+  },
+  input: {
+    fontSize: 20,
+    marginLeft: 10,
+  },
 });
-
-export default SearchBar;
-
-//RNFE og RNSS

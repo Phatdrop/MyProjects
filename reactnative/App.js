@@ -8,6 +8,7 @@ import "react-native-gesture-handler";
 import ScreenA from "./screens/ScreenA";
 import ScreenB from "./screens/ScreenB";
 import Intro from "./screens/Intro";
+import Camera from "./screens/Camera";
 import {
   View,
   StyleSheet,
@@ -17,6 +18,7 @@ import {
   DrawerLayoutAndroid,
   Alert,
   Modal,
+  FlatList,
 } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {
@@ -26,7 +28,6 @@ import {
 } from "react-native-gesture-handler";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import NoteScreen from "./screens/NoteScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -46,18 +47,19 @@ export default function App() {
   if (!user.name) return <Intro onFinish={findUser} />;
   else {
     return (
-       <NavigationContainer>
-         <Tab.Navigator options={{ headerShown: false }}>
-           <Tab.Screen
-             name="Home"
-             component={ScreenA}
-             options={{
-               header: () => null,
-             }}
-           />
-           <Tab.Screen name="New Post" component={ScreenB} />
-         </Tab.Navigator>
-       </NavigationContainer>
+      <NavigationContainer>
+        <Tab.Navigator options={{ headerShown: false }}>
+          <Tab.Screen
+            name="Home"
+            component={ScreenA}
+            options={{
+              header: () => null,
+            }}
+          />
+          <Tab.Screen name="New Post" component={ScreenB} />
+          <Tab.Screen name="Camera" component={Camera} />
+        </Tab.Navigator>
+      </NavigationContainer>
     );
   }
 }

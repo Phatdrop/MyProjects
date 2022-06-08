@@ -2,6 +2,7 @@
   "dependencies": {
     "@syncfusion/ej2-react-schedule": "^20.1.50",
     "create-react-app": "^5.0.1",
-    "galio-framework": "^0.8.0"
+    "galio-framework": "^0.8.0",
+    "react-native-camera": "^4.2.1"
   }
 }

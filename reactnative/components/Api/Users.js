@@ -1,10 +1,14 @@
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 import { useState, useEffect } from "react";
 import React from "react";
-import { FlatList, ScrollView, TouchableOpacity} from "react-native-gesture-handler";
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
+import IconButton from "../IconButton";
 
 const URL = "http://206.189.49.197/User/";
-
 
 const Users = () => {
   const [user, setUser] = useState();
@@ -16,8 +20,6 @@ const Users = () => {
   const [sick, setSick] = useState("");
   const [toggle, setToggle] = useState(true);
 
-  
-
   useEffect(() => {
     if (isLoading) {
       fetch(URL)
@@ -26,68 +28,45 @@ const Users = () => {
         .then(() => {
           setIsLoading(false);
         });
-      }
-    }, []);
+    }
+  }, []);
 
-   
-   
-// useEffect(() => {
-//   var filteredData = filterByOffSite(users);
-//   filteredData = filterByOnsite(filteredData);
-//   setFilteredList(filteredData);
-// }, [onSite, offSite, sick]);
+  // useEffect(() => {
+  //   var filteredData = filterByOffSite(users);
+  //   filteredData = filterByOnsite(filteredData);
+  //   setFilteredList(filteredData);
+  // }, [onSite, offSite, sick]);
 
-//   const filterByOnsite = (filteredData) => {
-//     if (!onSite) {
-//       return filteredData;
-//     }
-//     const filteredUsers = filteredData.filter(
-//       (users) => users.currentAbsenceStatus === "OnSite".indexOf(onSite) !== -1 );
+  //   const filterByOnsite = (filteredData) => {
+  //     if (!onSite) {
+  //       return filteredData;
+  //     }
+  //     const filteredUsers = filteredData.filter(
+  //       (users) => users.currentAbsenceStatus === "OnSite".indexOf(onSite) !== -1 );
 
-//       return filteredUsers;
-//     };
+  //       return filteredUsers;
+  //     };
 
-//     const filterByOffSite = (filteredData) => {
-//       if (!offSite) {
-//         return filteredData; 
-//       }
+  //     const filterByOffSite = (filteredData) => {
+  //       if (!offSite) {
+  //         return filteredData;
+  //       }
 
-//       const filteredUsers = filteredData.filter(
-//         (users) => users.currentAbsenceStatus === offSite.indexOf(offSite) !== -1 );
-//         return filteredUsers;
-//     }
-//       const handleOnSiteChange = (event) => {
-//         setOnSite(event.target.value);
-//       }
-//       const handleOffSiteChange = (event) => {
-//         const offSite = event.target.value;
-//       }
-//       const handleSickChange = (event) => {
-//         const sick = event.target.value;
-//       }
+  //       const filteredUsers = filteredData.filter(
+  //         (users) => users.currentAbsenceStatus === offSite.indexOf(offSite) !== -1 );
+  //         return filteredUsers;
+  //     }
+  //       const handleOnSiteChange = (event) => {
+  //         setOnSite(event.target.value);
+  //       }
+  //       const handleOffSiteChange = (event) => {
+  //         const offSite = event.target.value;
+  //       }
+  //       const handleSickChange = (event) => {
+  //         const sick = event.target.value;
+  //       }
 
-
-      // return (
-      //   <View>
-      //     <View> 
-      //   <View> 
-      //     <Button
-      //     title="OnSite"
-      //     value = {onSite}
-      //     onPress= {handleOnSiteChange} />
-      //   </View>
-      //   <Button
-      //   title="OffSite"
-      //   value = {offSite}
-      //   onPress= {handleOffSiteChange} /> 
-      //   </View>
-      //   <Button 
-      //   title="Sick"
-      //   value = {sick}
-      //   onPress= {handleSickChange} />
-      //   </View> 
-        
-      // )
+  // )
   // return (
   //   <View id = "user-list">
   //     {filteredList.map((item,index) => (
@@ -95,77 +74,80 @@ const Users = () => {
   //         <View className="UserFirstName">{`FirstName: ${item.firstName}`} </View>
   //         <View className="UserLastName">{`LastName: ${item.lastName}`} </View>
   //         <View className="UserStatus">{`Status: ${item.currentAbsenceStatus}`} </View>
-  //       </View>  
+  //       </View>
   //     ))}
   //   </View>
   // )
 
   return (
-      <View style = {styles.container}>
+    <SafeAreaView>
       {isLoading ? (
         <Text>Loading...</Text>
-        ) : (
-          <View style = {styles.container}> 
+      ) : (
+        <View style={styles.inputContainer}>
+          <Text style={styles.textItem}> Users </Text>
           <FlatList
-            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(user) => user.name}
             data={users}
             renderItem={({ item }) => (
-              <View style = {styles.card}> 
-              <View style= {styles.listItem}>
-                <Text style={styles.textItem}>
-                  {item.firstName + " " + item.lastName + " "+ item.currentAbsenceStatus}  
+              <View style={styles.card}>
+                <View style={styles.listItem}>
+                  <Text style={styles.textItem}>
+                    {item.firstName +
+                      " " +
+                      item.lastName +
+                      " " +
+                      item.currentAbsenceStatus}
                   </Text>
+                </View>
               </View>
-              </View>
-            )} 
-            />
-          <View style={{backgroundColor:"orange"}}> 
-          </View>
-          <View style={{backgroundColor:"yellow"}}>
-          </View>
+            )}
+          />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default Users;
 
 const styles = StyleSheet.create({
-  listItem:{
+  listItem: {
     padding: 20,
-    backgroundColor: '#ccc',
-    borderColor: 'black',
-    justifyContent: 'space-between',
+    backgroundColor: "#ccc",
+    justifyContent: "space-between",
     borderWidth: 1,
     margin: 10,
-    borderColor: 'blue',
     borderRadius: 50,
-    flex: 1,
   },
   textItem: {
     fontSize: 20,
-    fontWeight: 'bold',
-    flex: 1,
-    alignSelf: 'center',
+    fontWeight: "bold",
+    alignSelf: "center",
   },
-  viewBackground: {
-    backgroundColor: 'white',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  ColorChecker: {
+    color: "purple",
   },
   card: {
-    borderRadius: 6,
-    top: 140,
+    borderRadius: 120,
+    top: 100,
     elevation: 3,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     shadowOffset: { width: 1, height: 1 },
-    shadowColor: '#333',
+    shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
+    paddingBottom: 10,
+    paddingTop: 10,
+    borderBottomColor: "grey",
+    borderBottomWidth: 2,
+    borderTopColor: "grey",
+    borderRightColor: "grey",
+    borderRightWidth: 2,
+    backgroundColor: "red",
   },
   cardContent: {
     marginHorizontal: 18,
@@ -174,7 +156,7 @@ const styles = StyleSheet.create({
   filterButton: {
     backgroundColor: "#009688",
     alignItems: "center",
-    padding:10,
+    padding: 10,
     borderRadius: 50,
     margin: 10,
     width: 70,
@@ -182,23 +164,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     left: 1,
     top: -300,
-    flexDirection:"column",
-
+    flexDirection: "column",
   },
-  buttonView: 
-  {
+  buttonView: {
     marginTop: 100,
     marginLeft: 1,
     marginRight: 1,
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: "black", 
+    borderColor: "black",
     overflow: "hidden",
     marginBottom: 1,
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingTop: 4,
+    paddingHorizontal: 16,
+    backgroundColor: "yellow",
+    flex: 2,
+  },
+  inputContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    marginVertical: 60,
+    marginHorizontal: 55,
   },
 });
