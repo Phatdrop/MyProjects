@@ -19,6 +19,7 @@ import {
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import Create from "../components/Api/Create";
 import CustomButton from "../components/CustomButton";
+import ModalAbsenceStatus from "../components/ModalAbsenceStatus";
 
 export default function ScreenB({ navigation }) {
   const onPressHandler = () => {
@@ -36,6 +37,7 @@ export default function ScreenB({ navigation }) {
         }}
       />
       <Create />
+      <ModalAbsenceStatus />
       <Pressable
         onPress={onPressHandler}
         style={({ pressed }) => ({

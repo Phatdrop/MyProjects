@@ -10,7 +10,7 @@ export default function SearchInput({ setTerm }) {
       <FontAwesome name="search" size={25} style={styles.iconStyles} />
       <TextInput
         style={styles.input}
-        placeholder="Name or Email"
+        placeholder="Name or Absence Status"
         value={input}
         onChangeText={(text) => setInput(text)}
         onEndEditing={() => {

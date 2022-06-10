@@ -18,22 +18,22 @@ import {
   FlatList,
 } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import Users from "../components/Api/Users";
+import UserList from "../components/Api/Users";
 import ItemCategory from "../components/ItemCategory";
 import SearchInput from "../components/SearchBar";
 
 const commonCategories = [
   {
     name: "OnSite",
-    imageUrl: require("../assets/burger.png"),
+    imageUrl: require("../assets/worklogo.png"),
   },
   {
     name: "OffSite",
-    imageUrl: require("../assets/pizza.png"),
+    imageUrl: require("../assets/homelogo.jpg"),
   },
   {
     name: "Sick",
-    imageUrl: require("../assets/cake.png"),
+    imageUrl: require("../assets/sicklogo.jpg"),
   },
 ];
 
@@ -43,6 +43,7 @@ export default function ScreenA({ navigation }) {
   };
 
   const [term, setTerm] = useState("OnSite");
+
   return (
     <View style={styles.body}>
       <SearchInput />
@@ -65,7 +66,7 @@ export default function ScreenA({ navigation }) {
           keyExtractor={(category) => category.name}
         />
       </View>
-      <Users />
+      <UserList />
       <Text style={styles.text}></Text>
       <Pressable
         onPress={onPressHandler}

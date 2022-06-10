@@ -28,6 +28,7 @@ import {
 } from "react-native-gesture-handler";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CameraComponent from "./screens/Camera";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -57,7 +58,7 @@ export default function App() {
             }}
           />
           <Tab.Screen name="New Post" component={ScreenB} />
-          <Tab.Screen name="Camera" component={Camera} />
+          <Tab.Screen name="Camera" component={CameraComponent} />
         </Tab.Navigator>
       </NavigationContainer>
     );

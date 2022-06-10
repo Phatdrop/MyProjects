@@ -4,80 +4,67 @@ import React from "react";
 import {
   FlatList,
   ScrollView,
+  TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import IconButton from "../IconButton";
+import SearchBar from "../SearchBar";
+import ItemCategory from "../ItemCategory";
 
 const URL = "http://206.189.49.197/User/";
 
-const Users = () => {
-  const [user, setUser] = useState();
+const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([]);
-  const [filteredList, setFilteredList] = useState(users);
+  const [filteredData, setFilteredData] = useState([]);
+  const [masterData, setMasterData] = useState([]);
+  const [search, setSearch] = useState("");
   const [onSite, setOnSite] = useState("");
   const [offSite, setOffSite] = useState("");
   const [sick, setSick] = useState("");
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    if (isLoading) {
-      fetch(URL)
-        .then((response) => response.json())
-        .then((users) => setUsers(users))
-        .then(() => {
-          setIsLoading(false);
-        });
-    }
+    fetchUsers();
+    return () => {};
   }, []);
 
+  const fetchUsers = () => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((json) => {
+        setMasterData(json);
+        setFilteredData(json);
+        setIsLoading(false);
+      });
+  };
+
   // useEffect(() => {
-  //   var filteredData = filterByOffSite(users);
-  //   filteredData = filterByOnsite(filteredData);
-  //   setFilteredList(filteredData);
-  // }, [onSite, offSite, sick]);
+  //   if (isLoading) {
+  //     fetch(URL)
+  //       .then((response) => response.json())
+  //       .then((users) => setUsers(users))
+  //       .then(() => {
+  //         setIsLoading(false);
+  //       });
+  //   }
+  // }, []);
 
-  //   const filterByOnsite = (filteredData) => {
-  //     if (!onSite) {
-  //       return filteredData;
-  //     }
-  //     const filteredUsers = filteredData.filter(
-  //       (users) => users.currentAbsenceStatus === "OnSite".indexOf(onSite) !== -1 );
-
-  //       return filteredUsers;
-  //     };
-
-  //     const filterByOffSite = (filteredData) => {
-  //       if (!offSite) {
-  //         return filteredData;
-  //       }
-
-  //       const filteredUsers = filteredData.filter(
-  //         (users) => users.currentAbsenceStatus === offSite.indexOf(offSite) !== -1 );
-  //         return filteredUsers;
-  //     }
-  //       const handleOnSiteChange = (event) => {
-  //         setOnSite(event.target.value);
-  //       }
-  //       const handleOffSiteChange = (event) => {
-  //         const offSite = event.target.value;
-  //       }
-  //       const handleSickChange = (event) => {
-  //         const sick = event.target.value;
-  //       }
-
-  // )
-  // return (
-  //   <View id = "user-list">
-  //     {filteredList.map((item,index) => (
-  //       <View className="User-item" key={index}>
-  //         <View className="UserFirstName">{`FirstName: ${item.firstName}`} </View>
-  //         <View className="UserLastName">{`LastName: ${item.lastName}`} </View>
-  //         <View className="UserStatus">{`Status: ${item.currentAbsenceStatus}`} </View>
-  //       </View>
-  //     ))}
-  //   </View>
-  // )
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = masterData.filter((item) => {
+        const itemData = item.firstName
+          ? item.firstName.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredData(newData);
+      setSearch(text);
+    } else {
+      setFilteredData(masterData);
+      setSearch(text);
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -86,10 +73,15 @@ const Users = () => {
       ) : (
         <View style={styles.inputContainer}>
           <Text style={styles.textItem}> Users </Text>
+          <TextInput
+            value={search}
+            placeholder="Search"
+            onChangeText={(text) => searchFilter(text)}
+          />
           <FlatList
             showsVerticalScrollIndicator={false}
             keyExtractor={(user) => user.name}
-            data={users}
+            data={filteredData}
             renderItem={({ item }) => (
               <View style={styles.card}>
                 <View style={styles.listItem}>
@@ -110,7 +102,7 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UserList;
 
 const styles = StyleSheet.create({
   listItem: {

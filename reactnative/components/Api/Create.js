@@ -68,24 +68,7 @@ export default function App() {
         name="lastName"
       />
       {errors.lastName && <Text>This is required.</Text>}
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Absence Status"
-            style={styles.TextBox}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="Absence Status"
-      />
-      <AppCheckBox />
-      {errors.currentAbsenceStatus && <Text>This is required.</Text>}
+
       <Button
         style={styles.button}
         title="Submit"
