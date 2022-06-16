@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
   },
   text: {
     fontSize: 40,
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   button: {
-    backgroundColor: "red",
     borderRadius: 20,
     margin: 10,
     paddingVertical: 10,

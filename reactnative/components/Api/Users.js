@@ -107,7 +107,7 @@ export default UserList;
 const styles = StyleSheet.create({
   listItem: {
     padding: 20,
-    backgroundColor: "#ccc",
+    backgroundColor: "grey",
     justifyContent: "space-between",
     borderWidth: 1,
     margin: 10,
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     borderTopColor: "grey",
     borderRightColor: "grey",
     borderRightWidth: 2,
-    backgroundColor: "red",
   },
   cardContent: {
     marginHorizontal: 18,
@@ -171,13 +170,11 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 4,
     paddingHorizontal: 16,
-    backgroundColor: "yellow",
     flex: 2,
   },
   inputContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "green",
     marginVertical: 60,
     marginHorizontal: 55,
   },

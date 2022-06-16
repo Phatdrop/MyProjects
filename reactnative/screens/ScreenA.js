@@ -88,7 +88,6 @@ export default function ScreenA({ navigation }) {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "blue",
   },
   text: {
     fontSize: 40,
